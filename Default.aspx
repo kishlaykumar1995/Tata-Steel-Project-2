@@ -6,8 +6,49 @@
 <head runat="server">
     <title></title>
     <style>
-        .scnBtn {
-            align-self: center;
+        .btn-class{
+ display: inline-block;
+ border:1px solid #c9ae34;
+ color: #705D07;
+ border-radius: 3px 3px 3px 3px;
+ -webkit-border-radius: 3px 3px 3px 3px;
+ -moz-border-radius: 3px 3px 3px 3px;
+ font-family: 'SketchFlow Print';
+ width: auto;
+ height: auto;
+ font-size: 16px;
+ padding: 10px 40px;
+ box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d,0 2px 4px 0 #D4D4D4;
+ -moz-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d,0 2px 4px 0 #D4D4D4;
+ -webkit-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d,0 2px 4px 0 #D4D4D4;
+ text-shadow: 0 1px 0 #fff;
+ background-image: linear-gradient(to top, #fce374, #fcdf5b);
+ background-color: #fce374;
+}
+.btn-class:hover, .btn-class:active{
+ border:1px solid #967d09;
+ color: #705D07;
+ box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d;
+ -moz-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d;
+ -webkit-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d;
+ background-color: #fcdf5b;
+}
+        .auto-style1 {
+            display: inline-block;
+            border: 1px solid #c9ae34;
+            color: #705D07;
+            border-radius: 3px 3px 3px 3px;
+            -webkit-border-radius: 3px 3px 3px 3px;
+            -moz-border-radius: 3px 3px 3px 3px;
+            font-family: 'SketchFlow Print';
+            font-size: 16px;
+            padding: 10px 40px;
+            box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d,0 2px 4px 0 #D4D4D4;
+            -moz-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d,0 2px 4px 0 #D4D4D4;
+            -webkit-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d,0 2px 4px 0 #D4D4D4;
+            text-shadow: 0 1px 0 #fff;
+            background-image: url('linear-gradient(to%20top,%20#fce374, #fcdf5b)');
+            background-color: #fce374;
         }
     </style>
 </head>
@@ -16,8 +57,7 @@
     <div>
         <script src="webcam.js"></script>
 
-    <div runat="server" id="my_camera" style="width:320px; height:240px;"></div>
-                <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+    <div runat="server" id="my_camera" style="width:1280px; height:720px;"></div>
     <div id="my_result"></div>
 
     <script type="text/javascript">
@@ -55,8 +95,12 @@
 
         <br />
 
-        <asp:Button ID="Button1" runat="server" Text="Scan" OnClick="Button1_Click" BorderStyle="Ridge" Font-Names="SketchFlow Print" Height="37px" Width="89px" CssClass="scnBtn" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <asp:Button ID="captBtn" runat="server"  Text="Snap"  OnClientClick="javascript:void(take_snapshot())" Height="44px" Width="137px" CssClass="btn-class" Font-Bold="True" />
         
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button1" runat="server" Text="Scan" OnClick="Button1_Click" Height="44px" Width="137px" CssClass="btn-class" Font-Size="Medium" Font-Bold="True" />
         <br />
         <br />
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
