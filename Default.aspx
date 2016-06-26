@@ -33,6 +33,7 @@
  -webkit-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d;
  background-color: #fcdf5b;
 }
+
         .auto-style1 {
             display: inline-block;
             border: 1px solid #c9ae34;
@@ -50,7 +51,8 @@
             background-image: url('linear-gradient(to%20top,%20#fce374, #fcdf5b)');
             background-color: #fce374;
         }
-    </style>
+
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -103,7 +105,58 @@
         <asp:Button ID="Button1" runat="server" Text="Scan" OnClick="Button1_Click" Height="44px" Width="137px" CssClass="btn-class" Font-Size="Medium" Font-Bold="True" />
         <br />
         <br />
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label1" runat="server" Text="Person Details" Font-Names="Georgia" Font-Size="X-Large" ForeColor="Red" Visible="False"></asp:Label>
+        
+        <br />
+        <br />
+        <asp:ListView ID="ListView1" runat="server">
+            <ItemTemplate>
+                <asp:Table BorderWidth="20px" runat="server" CellPadding="10" CellSpacing="10">
+                    <asp:TableRow>
+                        <asp:TableCell Font-Size="X-Large">Gatepass ID:</asp:TableCell>
+                        <asp:TableCell>
+                            <asp:TextBox ID="TextBox1" Font-Size="X-Large" runat="server" Enabled="false" Text='<%# Bind("p_id") %>'></asp:TextBox>
+                        </asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow>
+                        <asp:TableCell Font-Size="X-Large">Name:</asp:TableCell>
+                        <asp:TableCell>
+                            <asp:TextBox ID="TextBox2" Font-Size="X-Large" runat="server" Enabled="false" Text='<%# Bind("name") %>'></asp:TextBox>
+                        </asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow CssClass="table">
+                        <asp:TableCell Font-Size="X-Large">DeptCode:</asp:TableCell>
+                        <asp:TableCell>
+                            <asp:TextBox ID="TextBox3" Font-Size="X-Large" runat="server" Enabled="false" Text='<%# Bind("deptcode") %>'></asp:TextBox>
+                        </asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow CssClass="table">
+                        <asp:TableCell Font-Size="X-Large">Issued On:</asp:TableCell>
+                        <asp:TableCell>
+                            <asp:TextBox ID="TextBox4" Font-Size="X-Large" runat="server" Text='<%# Eval("issued_on").ToString().Substring(0,10) %>' Enabled="false"></asp:TextBox>
+                        </asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow CssClass="table">
+                        <asp:TableCell Font-Size="X-Large">Valid Till:</asp:TableCell>
+                        <asp:TableCell>
+                            <asp:TextBox ID="TextBox5" runat="server" Text='<%# Eval("valid_till").ToString().Substring(0,10) %>' Enabled="false" Font-Size="X-Large"></asp:TextBox>
+                        </asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow CssClass="table">
+                        <asp:TableCell Font-Size="X-Large">Visit Hours:</asp:TableCell>
+                        <asp:TableCell>
+                            <asp:TextBox ID="TextBox6" Font-Size="X-Large" Text='<%# string.Format("{0}-{1}", Eval("perm_intime"), Eval("perm_outtime")) %>' runat="server" Enabled="false"></asp:TextBox>
+                        </asp:TableCell>
+                    </asp:TableRow>
+
+                </asp:Table>
+            </ItemTemplate>
+        </asp:ListView>
+        <br />
+        <br />
+        
+        &nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button2" runat="server" CssClass="auto-style1" Font-Names="Algerian" Height="43px" Text="IN" Visible="False" Width="109px" />
         
         <br />
         <br />
