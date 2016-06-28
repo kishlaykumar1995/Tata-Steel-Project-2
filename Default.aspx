@@ -111,11 +111,11 @@
         <br />
         <asp:ListView ID="ListView1" runat="server">
             <ItemTemplate>
-                <asp:Table BorderWidth="20px" runat="server" CellPadding="10" CellSpacing="10">
+                <asp:Table BorderWidth="15px" BorderColor="#cc66ff" runat="server" CellPadding="10" CellSpacing="10">
                     <asp:TableRow>
                         <asp:TableCell Font-Size="X-Large">Gatepass ID:</asp:TableCell>
                         <asp:TableCell>
-                            <asp:TextBox ID="TextBox1" Font-Size="X-Large" runat="server" Enabled="false" Text='<%# Bind("p_id") %>'></asp:TextBox>
+                            <asp:TextBox ID="TextBox1" Font-Size="X-Large" runat="server" Enabled="false" Text='<%# Bind("gp_id") %>'></asp:TextBox>
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
@@ -156,7 +156,7 @@
         <br />
         
         &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button2" runat="server" CssClass="auto-style1" Font-Names="Algerian" Height="43px" Text="IN" Visible="False" Width="109px" />
+        <asp:Button ID="Button2" runat="server" CssClass="auto-style1" Font-Names="Algerian" Height="43px" Text="IN" Visible="False" Width="109px" OnClick="Button2_Click" />
         
         <br />
         <br />

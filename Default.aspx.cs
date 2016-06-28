@@ -37,9 +37,10 @@ try
                 SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["constr1"].ConnectionString);
                 con.Open();
 
-                SqlDataAdapter ad = new SqlDataAdapter("select * from person where p_id='" + result.Text + "'", con);
+                SqlDataAdapter ad = new SqlDataAdapter("select * from visitor where gp_id='" + result.Text + "'", con);
                 DataSet ds = new DataSet();
                 ad.Fill(ds, "person");
+                ad.Dispose();
                 ListView1.DataSource = ds.Tables["person"];
                 ListView1.DataBind();
                 Label1.Visible = true;
@@ -77,6 +78,7 @@ try
                                     else
                                     {
                                         Label l = new Label();
+                                        l.Attributes.Add("style", "font-size:30px; color:Red;");
                                         l.Text = "Sorry!!Your visit hours are between " + s + " Hrs only.";
                                         this.Controls.Add(l);
                                     }
@@ -107,6 +109,7 @@ try
 
         barcodeBitmap.Dispose();
         File.Delete(@"C:\a.jpg");
+            
     }
 catch (FileNotFoundException ex)
     {
@@ -119,4 +122,51 @@ catch (FileNotFoundException ex)
     }
 
         }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        int dpt = 0;
+        foreach (var v in ListView1.Items)
+        {
+            TextBox t = (TextBox)v.FindControl("TextBox3");
+            if (t != null)
+            {
+                dpt = Int32.Parse(t.Text);
+            }
+        }
+
+
+        SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["constr1"].ConnectionString);
+        con.Open();
+        string s = "select valid_till from emp_roles where role='I/O' and e_id = " + Session["eid"] + " and deptcode=" + dpt;
+        //Response.Write(s);
+        SqlDataAdapter ad = new SqlDataAdapter(s, con);
+        DataSet ds = new DataSet();
+        ad.Fill(ds);
+        ad.Dispose();
+        DataTable dt = ds.Tables[0];
+        if (dt.Rows.Count == 0)
+        {
+            Label l = new Label();
+            l.Text = "Dept Inaccessible by the current employee";
+            this.Controls.Add(l);
+        }
+        else
+        {
+            if (DateTime.Now.CompareTo(Convert.ToDateTime(dt.Rows[0]["valid_till"])) < 0)
+            {
+                //DateTime d = (DateTime)dt.Rows[0]["valid_till"];
+                //Response.Write(d);
+                //Response.Redirect("Default.aspx");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have Checked-In Successfully')", true);
+            }
+            else
+            {
+                Label l = new Label();
+                l.Text = "Access for current employee has expired";
+                this.Controls.Add(l);
+            }
+        }
+        
+    }
 }
