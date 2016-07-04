@@ -35,9 +35,7 @@ public partial class LoginPage : System.Web.UI.Page
         
         if(ds.Tables[0].Rows.Count == 0)
         {
-            Label l = new Label();
-            l.Text = "Invalid ID!!";
-            this.Controls.Add(l);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Invalid ID')", true);
         }
         else
         {
@@ -46,13 +44,11 @@ public partial class LoginPage : System.Web.UI.Page
             {
                 Session["ename"] = dr["name"];
                 Session["eid"] = dr["e_id"];
-                Response.Redirect("Default.aspx");
+                Response.Redirect("HomePage.aspx");
             }
             else
             {
-                Label l = new Label();
-                l.Text = "Wrong Password!!";
-                this.Controls.Add(l);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Invalid password')", true);
             }
         }
     }
