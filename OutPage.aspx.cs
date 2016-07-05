@@ -40,35 +40,111 @@ public partial class OutPage : System.Web.UI.Page
                 SqlDataAdapter ad = new SqlDataAdapter("select * from log_records where gp_id='" + result.Text + "'", con);
                 DataSet ds = new DataSet();
                 ad.Fill(ds);
-                ad.Dispose();
-
                 //Get the records table
                 DataTable dt = ds.Tables[0];
                 int x = dt.Rows.Count; 
                 //Check if records for the particular gatepassID exist
                 if(x == 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No Entry records for this gatepass')", true);
+                    LiteralControl control = new LiteralControl();
+                    control.Text = "<br /><br />";
+                    this.Controls.Add(control);
+                    Label l = new Label();
+                    l.Attributes.Add("style", "font-size:30px; color:Red;");
+                    l.Text = "No entry records present for this gatepassID.";
+                    this.Controls.Add(l);
                 }
 
                 else if(!(bool)dt.Rows[x-1]["visitor_out"])
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have successfully checked out')", true);
+                    if(accessible(con,(int)dt.Rows[x-1]["deptcode"]))
+                    {
+                        SqlCommand com = new SqlCommand();
+                        com.CommandText = "update log_records set visitor_out=1,outperson=" + Session["eid"]
+                                            + ",outtime='" + DateTime.Now.TimeOfDay + "' where gp_id='"
+                                            + result.Text + "' and intime='" + dt.Rows[x - 1]["intime"] + "'";
+                        Response.Write(com.CommandText);
+                        com.Connection = con;
+                        com.ExecuteNonQuery();
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have successfully checked out'); window.location = 'HomePage.aspx'", true);
+                        //Response.Redirect("HomePage.aspx");
+                    }
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have no pending check outs')", true);
+                    LiteralControl control = new LiteralControl();
+                    control.Text = "<br /><br />";
+                    this.Controls.Add(control);
+                    Label l = new Label();
+                    l.Attributes.Add("style", "font-size:30px; color:Red;");
+                    l.Text = "No pending Check-Outs";
+                    this.Controls.Add(l);
                 }
+                ad.Dispose();
             }
-        barcodeBitmap.Dispose();
+            else
+            {
+                LiteralControl control = new LiteralControl();
+                control.Text = "<br /><br />";
+                this.Controls.Add(control);
+                Label l = new Label();
+                l.Attributes.Add("style", "font-size:30px; color:Red;");
+                l.Text = "Scanning Error!!Try Again";
+                this.Controls.Add(l);
+            }
+            barcodeBitmap.Dispose();
         File.Delete(@"C:\a.jpg");
         }
         catch(FileNotFoundException)
         {
+            LiteralControl control = new LiteralControl();
+            control.Text = "<br /><br />";
+            this.Controls.Add(control);
             Label l = new Label();
             l.Attributes.Add("style", "font-size:30px; color:Red;");
             l.Text = "No Snapshot Exists";
             this.Controls.Add(l);
         }        
     }
+
+    private bool accessible(SqlConnection con, int v)
+    {
+        string s = "select valid_till from emp_roles where role='I/O' and e_id = " + Session["eid"] + " and deptcode=" + v;
+        //Response.Write(s);
+        SqlDataAdapter ad = new SqlDataAdapter(s, con);
+        DataSet ds = new DataSet();
+        ad.Fill(ds);
+        ad.Dispose();
+        DataTable dt = ds.Tables[0];
+        if (dt.Rows.Count == 0)
+        {
+            LiteralControl control = new LiteralControl();
+            control.Text = "<br /><br />";
+            this.Controls.Add(control);
+            Label l = new Label();
+            l.Attributes.Add("style", "font-size:30px; color:Red;");
+            l.Text = "Dept Inaccessible by the current employee";
+            this.Controls.Add(l);
+            return false;
+        }
+        else
+        {
+            if (DateTime.Now.CompareTo(Convert.ToDateTime(dt.Rows[0]["valid_till"])) < 0)
+            {
+                return true;
+            }
+            else
+            {
+                LiteralControl control = new LiteralControl();
+                control.Text = "<br /><br />";
+                this.Controls.Add(control);
+                Label l = new Label();
+                l.Attributes.Add("style", "font-size:30px; color:Red;");
+                l.Text = "Access for current employee has expired";
+                this.Controls.Add(l);
+                return false;
+            }
+        }
+
+            }
 }

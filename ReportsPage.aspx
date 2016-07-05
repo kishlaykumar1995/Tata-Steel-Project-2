@@ -59,7 +59,17 @@
         <br />
     </div>
         <div class="grid">
-        <asp:DataGrid runat="server" Width="100%" DataSourceID="SqlDataSource2"></asp:DataGrid>
+        <asp:DataGrid runat="server" Width="100%" DataSourceID="SqlDataSource2" AutoGenerateColumns="false">
+            <Columns>
+                <asp:BoundColumn HeaderText="gp_id" DataField="gp_id" />
+                <asp:BoundColumn HeaderText="intime" DataField="intime" />
+                <asp:BoundColumn HeaderText="inperson" DataField="inperson" />
+                <asp:BoundColumn HeaderText="outtime" DataField="outtime" />
+                <asp:BoundColumn HeaderText="outperson" DataField="outperson" />
+                <asp:BoundColumn HeaderText="deptcode" DataField="deptcode" />
+                <asp:BoundColumn HeaderText="visitor_out" DataField="visitor_out" />
+            </Columns>
+        </asp:DataGrid>
         </div>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" SelectCommand='<%# string.Format("select deptcode from emp_roles where e_id={0}" , Session["eid"]) %>' ConnectionString='<% $ConnectionStrings:conStr1 %>'></asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString='<% $ConnectionStrings:conStr1 %>'></asp:SqlDataSource>

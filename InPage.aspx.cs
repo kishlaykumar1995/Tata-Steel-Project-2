@@ -73,7 +73,17 @@ try
                                 {
                                     string s = t1.Text;
                                     int i, j;
-                                    if (s[3].Equals('-'))
+                                    if(s[1].Equals('-'))
+                                    {
+                                        i = Int32.Parse(s.Substring(0, 1));
+                                        j = Int32.Parse(s.Substring(2));
+                                    }
+                                    else if (s[2].Equals('-'))
+                                    {
+                                        i = Int32.Parse(s.Substring(0, 2));
+                                        j = Int32.Parse(s.Substring(3));
+                                    }
+                                    else if (s[3].Equals('-'))
                                     {
                                         i = Int32.Parse(s.Substring(0, 3));
                                         j = Int32.Parse(s.Substring(4));
@@ -211,13 +221,14 @@ catch (FileNotFoundException)
                 //Response.Redirect("Default.aspx");
                 int time = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "insert into log_records values('" + Session["gp_id"] + "'," + time + "," + Session["eid"] + ",null,null," + dpt + ",1,0)";
+                cmd.CommandText = "insert into log_records values('" + Session["gp_id"] + "','" + DateTime.Now.TimeOfDay.ToString() + "'," + Session["eid"] + ",null,null," + dpt + ",1,0)";
                 Response.Write(cmd.CommandText);
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
 
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have Checked-In Successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert", "alert('You have successfully Checked-In'); window.location = 'HomePage.aspx'", true);
+               // Response.Redirect("HomePage.aspx");
             }
             else
             {

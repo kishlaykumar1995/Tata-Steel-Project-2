@@ -63,7 +63,10 @@
 			width: 1280,
 			height: 720,
 			image_format: 'jpeg',
-			jpeg_quality: 90
+			jpeg_quality: 90,
+			force_flash: false,
+			flip_horiz: true,
+			fps: 45
 		});
 		Webcam.attach('#my_camera');
 	</script>
