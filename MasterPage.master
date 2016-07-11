@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="cpTitle" runat="server">
+        </asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="cpHeadCSS" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+
+                 <h1>
+        <asp:Image ID="Image1" Width="100%" Height="100px" runat="server"  ImageUrl="~/Images/banner2.jpg"  BorderWidth="0px"  CssClass="image-container"/>
+                 </h1>
+            <asp:ContentPlaceHolder ID="cpBody" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    <script src="Scripts/jquery-2.2.4.min.js"></script>
+    <script src="Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+
+    <script>
+
+    </script>
+
+    <asp:ContentPlaceHolder ID="cpScripts" runat="server">
+    </asp:ContentPlaceHolder>
+    </form>
+</body>
+
+
+</html>

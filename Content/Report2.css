@@ -1,0 +1,41 @@
+﻿@import url('Reports.css');
+body{
+             margin: 0px;
+            padding: 0px;
+            background-color: blanchedalmond;
+        }
+                .image-container {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+                .DetailsPane {
+                    position: absolute;
+                    top: 30%;
+                    left :40%;
+                }
+                .combobox{
+                    padding: 10px;
+                    margin-left: 35px;
+
+                }
+                .idbox{
+                    padding: 6px;
+                    margin-left: 58px;
+                }
+                .grid{
+                    position: absolute;
+                    top: 60%;
+                    width: 100%;
+
+                }
+
+                .homebutton{
+                    width: 60px;
+                    height: 60px;
+                    position: absolute;
+                    left: 93%;
+                    z-index: 3;
+                    top: 20px;
+                }
+

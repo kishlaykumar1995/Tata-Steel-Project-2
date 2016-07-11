@@ -20,36 +20,61 @@ public partial class LoginPage : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["conStr1"].ConnectionString);
-        con.Open();
-        using (con)
+        try
         {
-            SqlDataAdapter ad = new SqlDataAdapter("select * from emp_details where e_id='" + TextBox1.Text + "'", con);
-            using (ad)
+            if (TextBox1.Text.Equals(""))
             {
-                ds = new DataSet();
-                ad.Fill(ds);
-            } 
-        }
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "comp('Empty ID field!')", true);
+                return;
+            }
 
-        
-        if(ds.Tables[0].Rows.Count == 0)
-        {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Invalid ID')", true);
-        }
-        else
-        {
-            dr = ds.Tables[0].Rows[0];
-            if(dr["password"].Equals(TextBox2.Text))
+            if (TextBox2.Text.Equals(""))
             {
-                Session["ename"] = dr["name"];
-                Session["eid"] = dr["e_id"];
-                Response.Redirect("HomePage.aspx");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "comp('Empty Password Field!')", true);
+                return;
+            }
+
+            int x = Int32.Parse(TextBox1.Text);
+
+
+            SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["conStr1"].ConnectionString);
+            con.Open();
+            using (con)
+            {
+                SqlDataAdapter ad = new SqlDataAdapter("select * from emp_details where e_id='" + TextBox1.Text + "'", con);
+                using (ad)
+                {
+                    ds = new DataSet();
+                    ad.Fill(ds);
+                }
+            }
+
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "comp('Invalid ID!')", true);
+                // ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Invalid ID')", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Invalid password')", true);
+                dr = ds.Tables[0].Rows[0];
+                if (dr["password"].Equals(TextBox2.Text))
+                {
+                    Session["ename"] = dr["name"];
+                    Session["eid"] = dr["e_id"];
+                    Response.Redirect("Home.aspx");
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "comp('Wrong Password')", true);
+                }
             }
+
+        }
+        catch (FormatException)
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "comp('Invalid ID!!ID must be a number')", true);
         }
     }
+
 }

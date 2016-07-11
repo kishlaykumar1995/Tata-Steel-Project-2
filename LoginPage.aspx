@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Login</title>
+                <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
     <style>
         .box{
             position:absolute;
@@ -16,6 +17,8 @@
     left: 0px;
     top: 0px;
 }
+
+
         body{
             margin: 0px;
             padding: 0px;
@@ -55,7 +58,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="auto-style1">
+    <div>
        <h1>
         <asp:Image ID="Image1" Width="100%" Height="100px" runat="server"  ImageUrl="~/Images/banner2.jpg"  BorderWidth="0px"  CssClass="image-container"/>
        </h1>
@@ -76,7 +79,34 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Login"  CssClass="btn-class" Font-Names="Century"/>
         </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+         <div class="modal-header">
+       <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <h4 class="modal-title" id="myModalLabel">Error</h4>
+      </div> 
+      <div id="alertcontent" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
     </div>
+    </div>
+  </div>
+    </div>
+            <script src="Scripts/jquery-2.2.4.min.js"></script>
+<script src="Scripts/bootstrap.js"></script>
+<script>
+    function comp(str) {
+        alertcontent.innerHTML = str;
+        $('#myModal').modal('show')                // initializes and invokes show immediately
+    }
+</script>
     </form>
 </body>
+
 </html>
