@@ -16,8 +16,9 @@ public partial class Reports : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        string to = datepicker1.Value.Substring(6) + "-" + datepicker1.Value.Substring(3,2) + "-" +datepicker1.Value.Substring(0,2);
-        string from = datepicker.Value.Substring(6) + "-" + datepicker.Value.Substring(3, 2) + "-" + datepicker.Value.Substring(0, 2);
+        string to = datepicker1.Value.Substring(6) + "-" + datepicker1.Value.Substring(0, 2) + "-" +datepicker1.Value.Substring(3, 
+            2);
+        string from = datepicker.Value.Substring(6) + "-" + datepicker.Value.Substring(0, 2) + "-" + datepicker.Value.Substring(3, 2);
         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + SqlDataSource1.SelectCommand + "')", true);
         SqlDataSource2.SelectCommand = "select * from log_records where deptcode=" + DropDownList1.SelectedItem + " and indate between '" + from + "' and '" + to + "'";
         //System.Windows.Forms.MessageBox.Show(SqlDataSource2.SelectCommand);

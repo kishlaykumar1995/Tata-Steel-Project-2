@@ -24,6 +24,7 @@ public partial class In : System.Web.UI.Page
 
         try
         {
+            //return;
             Label1.Visible = false;
             ListView1.Visible = false;
             Button2.Visible = false;
@@ -227,7 +228,7 @@ public partial class In : System.Web.UI.Page
                 //Response.Redirect("Default.aspx");
                 int time = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "insert into log_records values('" + Session["gp_id"] + "','" + DateTime.Now.Date + "','" + DateTime.Now.TimeOfDay.ToString() + "'," + Session["eid"] + ",null,null," + dpt + ",1,0)";
+                cmd.CommandText = "insert into log_records values('" + Session["gp_id"] + "','" + String.Format("{0:yyyy-MM-dd}", DateTime.Today) + "','" + DateTime.Now.TimeOfDay.ToString() + "'," + Session["eid"] + ",null,null," + dpt + ",1,0)";
                 Response.Write(cmd.CommandText);
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();

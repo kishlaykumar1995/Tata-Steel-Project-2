@@ -51,10 +51,7 @@
  -webkit-box-shadow: inset 0 1px 0 0 #fff6ce,inset 0 -1px 0 0 #e3c852,inset 0 0 0 1px #fce88d;
  background-color: #fcdf5b;
 }
-        .auto-style1 {
-            height: 98px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -73,7 +70,7 @@
         <br />
         <br />
             <asp:Label ID="Label2" runat="server" Text="Password: "></asp:Label>
-        &nbsp;&nbsp;<asp:TextBox ID="TextBox2" runat="server" TextMode="Password" Height="26px" Width="263px"></asp:TextBox>
+        &nbsp;<asp:TextBox ID="TextBox2" runat="server" TextMode="Password" Height="26px" Width="263px"></asp:TextBox>
         <br />
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
